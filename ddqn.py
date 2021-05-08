@@ -87,7 +87,7 @@ class Agent():
 
     def build_network(self):
         model = Sequential()
-        model.add(Convolution2D(32, 8, 8, subsample=(4, 4), activation='relu', input_shape=(STATE_LENGTH, FRAME_WIDTH, FRAME_HEIGHT)))
+        model.add(Convolution2D(32,(8, 8), subsample=(4, 4), activation='relu', input_shape=(STATE_LENGTH, FRAME_WIDTH, FRAME_HEIGHT)))
         model.add(Convolution2D(64, 4, 4, subsample=(2, 2), activation='relu'))
         model.add(Convolution2D(64, 3, 3, subsample=(1, 1), activation='relu'))
         model.add(Flatten())
@@ -288,7 +288,7 @@ def main():
                 last_observation = observation
                 action = agent.get_action(state)
                 observation, reward, terminal, _ = env.step(action)
-                # env.render()
+                env.render()
                 processed_observation = preprocess(observation, last_observation)
                 state = agent.run(state, action, reward, terminal, processed_observation)
     else:  # Test mode
